@@ -1,5 +1,5 @@
 <template>
-<h3>Create a new Tweet</h3>
+  <h3>Create a new Tweet</h3>
   <form @submit.prevent="formHandler">
     <input
       type="text"
@@ -60,6 +60,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+$tablet: 768px
 form
   display: flex
   flex-direction: column
@@ -69,6 +70,12 @@ form
   border-radius: 8px
   margin: auto
   background-color: LightGray
+  @media (max-width: $tablet)
+    width: 100%
+    border-radius: 0px
+    box-shadow: none
+    margin-left: 0
+    margin-right: 0
   *
     padding: .5rem
     margin: 0.4rem

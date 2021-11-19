@@ -30,9 +30,15 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+$tablet: 768px
+
 ul
   width: 30rem
   margin: auto
+  @media (max-width: $tablet)
+    width: 100%
+    margin: 0
+    padding: 0
 li
   list-style: none
   margin-bottom: 1rem

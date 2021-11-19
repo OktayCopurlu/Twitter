@@ -3,7 +3,7 @@
     <router-link v-if="!token" to="/login">Login</router-link>
     <router-link @click="logout" v-else to="/login">Logout</router-link> |
     <router-link to="/twitter">Twitter</router-link> |
-    <router-link to="/post-tweet">Post Tweet</router-link>  | 
+    <router-link to="/post-tweet">Post Tweet</router-link> |
     <router-link v-if="token" to="/user-page">User Page</router-link>
   </div>
   <router-view />
@@ -20,27 +20,32 @@ export default {
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("email");
       sessionStorage.removeItem("id");
-      this.$router.go()
+      this.$router.go();
     },
   },
 };
 </script>
 <style>
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  
 }
 
 #nav {
-  padding: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  width: 100%;
 }
 
 #nav a {
   font-weight: bold;
   color: #2c3e50;
+  width: 100%;
 }
 
 #nav a.router-link-exact-active {

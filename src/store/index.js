@@ -10,7 +10,7 @@ export default createStore({
     userId: id,
   },
   mutations: {
-    setUserInfo(state,{ userEmail, token, userId }) {
+    setUserInfo(state, { userEmail, token, userId }) {
       sessionStorage.setItem("token", token);
       sessionStorage.setItem("email", userEmail);
       sessionStorage.setItem("id", userId);
@@ -36,8 +36,6 @@ export default createStore({
       })
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
-
           const token = result.accessToken;
           const userId = result.user.id;
           const userEmail = result.user.email;
@@ -46,40 +44,37 @@ export default createStore({
             token,
             userId,
           };
-          console.log(userObj);
           commit("setUserInfo", userObj);
         })
         .catch((error) => console.log("error", error));
     },
     register({ commit }, { userEmail, userPassword }) {
-      return (
-        fetch(serverURL + "/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: userEmail,
-            password: userPassword,
-          }),
+      return fetch(serverURL + "/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: userEmail,
+          password: userPassword,
+        }),
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          const token = result.accessToken;
+          const userId = result.user.id;
+          const userEmail = result.user.email;
+
+          const userObj = {
+            userEmail,
+            token,
+            userId,
+          };
+
+          commit("setUserInfo", userObj);
         })
-          .then((response) => response.json())
-          .then((result) => {
-            const token = result.accessToken;
-            const userId = result.user.id;
-            const userEmail = result.user.email;
 
-            const userObj = {
-              userEmail,
-              token,
-              userId,
-            };
-
-            commit("setUserInfo", userObj);
-          })
-          
-          .catch((error) => console.log("error", error))
-      );
+        .catch((error) => console.log("error", error));
     },
     postTweet({ commit }, { title, tweet, userId }) {
       fetch(serverURL + "/tweets", {
