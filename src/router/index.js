@@ -4,7 +4,7 @@ import PostTweet from "../components/PostTweet.vue";
 import Twitter from "../components/Twitter.vue";
 import Home from "../components/Home.vue";
 import UserPage from "../components/UserPage.vue";
-
+import { getItem } from "../sessionStorage.js";
 const routes = [
   { path: "/", name: "Home", component: Home },
   {
@@ -21,7 +21,8 @@ const routes = [
     path: "/post-tweet",
     name: "PostTweet",
     component: PostTweet,
-  },{
+  },
+  {
     path: "/user-page",
     name: "UserPage",
     component: UserPage,
@@ -38,12 +39,12 @@ router.beforeEach((to, from, next) => {
     to.fullPath === "/post-tweet" ||
     to.fullPath === "/user-page"
   ) {
-    if (!sessionStorage.getItem("token")) {
+    if (!getItem("token")) {
       next("/login");
     }
   }
   if (to.fullPath === "/login") {
-    if (sessionStorage.getItem("token")) {
+    if (getItem("token")) {
       next("/twitter");
     }
   }

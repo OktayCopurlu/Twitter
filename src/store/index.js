@@ -1,25 +1,27 @@
 import { createStore } from "vuex";
+import { setItem, getItem } from "../sessionStorage.js";
 
 const serverURL = "https://js-advanced-twitter.herokuapp.com";
-const email = sessionStorage.getItem("email");
-const id = sessionStorage.getItem("id");
+
 export default createStore({
   state: {
     tweets: [],
-    userEmail: email,
-    userId: id,
+    userEmail: getItem("email"),
+    userId: getItem("id"),
+    token: getItem("token"),
   },
   mutations: {
     setUserInfo(state, { userEmail, token, userId }) {
-      sessionStorage.setItem("token", token);
-      sessionStorage.setItem("email", userEmail);
-      sessionStorage.setItem("id", userId);
+      setItem("token", token);
+      setItem("email", userEmail);
+      setItem("id", userId);
     },
     setTweets(state, tweets) {
-      return (state.tweets = tweets);
+      state.tweets = tweets;
+      return state.tweets;
     },
     addTweet(state, tweet) {
-      return state.tweets.push(tweet);
+      state.tweets.push(tweet);
     },
   },
   actions: {
@@ -76,17 +78,17 @@ export default createStore({
 
         .catch((error) => console.log("error", error));
     },
-    postTweet({ commit }, { title, tweet, userId }) {
+    postTweet({ commit, state }, { title, tweet }) {
       fetch(serverURL + "/tweets", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
+          Authorization: "Bearer " + getItem("token"),
         },
         body: JSON.stringify({
           title: title,
           text: tweet,
-          userId: userId,
+          userId: state.userId,
         }),
       })
         .then((response) => response.json())
@@ -98,10 +100,10 @@ export default createStore({
         })
         .catch((error) => console.log("error", error));
     },
-    getTweets({ commit }) {
+    getTweets({ commit, state }) {
       fetch(serverURL + "/tweets", {
         headers: {
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
+          Authorization: "Bearer " + state.token,
         },
       })
         .then((response) => response.json())
@@ -112,9 +114,6 @@ export default createStore({
   getters: {
     tweets(state) {
       return state.tweets;
-    },
-    userId(state) {
-      return state.userId;
     },
   },
 });

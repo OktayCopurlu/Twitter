@@ -1,5 +1,6 @@
 <template>
-  <form v-if="!token" @submit.prevent="formHandler">
+  <form @submit.prevent="formHandler">
+    <label for="email">Email</label>
     <input
       type="email"
       name="email"
@@ -8,6 +9,7 @@
       required
       placeholder="email"
     />
+    <label for="password">Password</label>
     <input
       required
       type="password"
@@ -19,26 +21,17 @@
     <button
       :disabled="isDisabled"
       :class="[isDisabled ? '' : 'ready-button', 'button']"
-      v-if="haveAccount"
     >
-      Login
+      {{ haveAccount ? "Login" : "Register" }}
     </button>
-    <button
-      :disabled="isDisabled"
-      :class="[isDisabled ? '' : 'ready-button', 'button']"
-      v-else
-    >
-      Register
-    </button>
+
     <a v-if="haveAccount" href="#" @click="register">Create new account</a>
     <a v-else href="#" @click="login">Login</a>
   </form>
-  <div v-else>
-    <h2>Welcome {{ user }}</h2>
-  </div>
 </template>
 
 <script>
+import { getItem } from "../sessionStorage.js";
 export default {
   data() {
     return {
@@ -53,7 +46,7 @@ export default {
       else return true;
     },
     token() {
-      return sessionStorage.getItem("token");
+      return getItem("token");
     },
     user() {
       return this.$store.state.userEmail;
@@ -107,13 +100,16 @@ form
     outline: 0
     font-family: ("Times New Roman", Times, serif)
     font-size: 1.2rem
+  label
+    text-align: start
+    color: black
+    margin-bottom: 0
   .button
     background-color: gray
     color: white
     padding: .8rem
     border: 0
     cursor: pointer
-
   .ready-button
     background-color: green
 </style>

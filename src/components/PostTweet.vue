@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -43,14 +43,12 @@ export default {
       if (this.title && this.tweet) return false;
       else return true;
     },
-    ...mapGetters(["userId"]),
   },
   methods: {
     formHandler() {
       const title = this.title;
       const tweet = this.tweet;
-      const userId = this.userId;
-      this.$store.dispatch("postTweet", { title, tweet, userId }).then(() => {
+      this.$store.dispatch("postTweet", { title, tweet }).then(() => {
         this.title = "";
         this.tweet = "";
       });

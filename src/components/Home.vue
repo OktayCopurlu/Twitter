@@ -1,12 +1,9 @@
 <template>
   <div>
-    <h2>Welcome to the Twitter</h2>
+    <h2>Welcome to Twitter</h2>
   </div>
 </template>
 
-<script>
-export default {};
-</script>
 
 <style lang="sass" scoped>
 div

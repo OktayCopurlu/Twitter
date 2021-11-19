@@ -18,12 +18,11 @@ export default {
   beforeMount() {
     this.$store.dispatch("getTweets");
   },
-
   computed: {
     tweets() {
       const tweets = this.$store.state.tweets;
       const userTweets = tweets.filter((tweet) => {
-        if (tweet.creator === sessionStorage.getItem("email")) {
+        if (tweet.creator === this.$store.state.userEmail) {
           return tweet;
         }
       });
