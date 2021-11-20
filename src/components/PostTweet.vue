@@ -87,7 +87,11 @@ form
     color: white
     padding: .8rem
     border: 0
-    cursor: pointer
   .ready-button
     background-color: green
+    transition: all 1s ease
+    cursor: pointer
+    &:hover
+      background-color: limegreen
+      transition: all 0.5s linear
 </style>
