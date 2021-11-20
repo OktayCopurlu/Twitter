@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import router from "../router/index.js";
 import { setItem, getItem } from "../sessionStorage.js";
 
 const serverURL = "https://js-advanced-twitter.herokuapp.com";
@@ -96,7 +97,7 @@ export default createStore({
           commit("addTweet", result);
         })
         .then(() => {
-          window.location.pathname = "/twitter";
+          router.push("/twitter");
         })
         .catch((error) => console.log("error", error));
     },

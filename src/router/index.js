@@ -4,28 +4,40 @@ import PostTweet from "../components/PostTweet.vue";
 import Twitter from "../components/Twitter.vue";
 import Home from "../components/Home.vue";
 import UserPage from "../components/UserPage.vue";
-import { getItem } from "../sessionStorage.js";
+import { isAuth } from "../auth";
 const routes = [
   { path: "/", name: "Home", component: Home },
   {
     path: "/login",
     name: "Login",
     component: Login,
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: "/twitter",
     name: "Twitter",
     component: Twitter,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/post-tweet",
     name: "PostTweet",
     component: PostTweet,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/user-page",
     name: "UserPage",
     component: UserPage,
+    meta: {
+      requiresAuth: true,
+    },
   },
 ];
 
@@ -34,20 +46,8 @@ const router = createRouter({
   routes,
 });
 router.beforeEach((to, from, next) => {
-  if (
-    to.fullPath === "/twitter" ||
-    to.fullPath === "/post-tweet" ||
-    to.fullPath === "/user-page"
-  ) {
-    if (!getItem("token")) {
-      next("/login");
-    }
-  }
-  if (to.fullPath === "/login") {
-    if (getItem("token")) {
-      next("/twitter");
-    }
-  }
-  next();
+  if (to.meta.requiresAuth && !isAuth()) next("/login");
+  else if (!to.meta.requiresAuth && isAuth()) next("/twitter");
+  else next();
 });
 export default router;

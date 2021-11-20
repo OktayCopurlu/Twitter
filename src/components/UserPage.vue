@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>My tweets</h3>
-    <ul>
+    <ul v-if="tweets.length > 0">
       <li v-for="tweet in tweets" :key="tweet">
         <div>
           <strong>{{ tweet.title }}</strong>
@@ -10,6 +10,7 @@
         <p class="text">{{ tweet.text }}</p>
       </li>
     </ul>
+    <h3 v-else>You have no tweets</h3>
   </div>
 </template>
 

@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import { getItem } from "../sessionStorage.js";
 export default {
   data() {
     return {
@@ -44,9 +43,6 @@ export default {
     isDisabled() {
       if (this.userEmail && this.userPassword) return false;
       else return true;
-    },
-    token() {
-      return getItem("token");
     },
     user() {
       return this.$store.state.userEmail;

@@ -1,10 +1,10 @@
 <template>
   <nav id="nav">
-    <router-link v-if="!token" to="/login">Login</router-link>
-    <router-link @click="logout" v-else to="/login">Logout</router-link> |
     <router-link to="/twitter">Twitter</router-link> |
     <router-link to="/post-tweet">Post Tweet</router-link> |
-    <router-link v-if="token" to="/user-page">User Page</router-link>
+    <router-link v-if="token" to="/user-page">User Page  | </router-link>
+    <router-link v-if="!token" to="/login"> Login</router-link>
+    <router-link @click="logout" v-else to="/login"> Logout</router-link>
   </nav>
 
   <router-view v-slot="{ Component }">
@@ -32,7 +32,6 @@ export default {
 };
 </script>
 <style lang="sass">
-
 #app
   font-family: (Avenir, Helvetica, Arial, sans-serif)
   -webkit-font-smoothing: antialiased
