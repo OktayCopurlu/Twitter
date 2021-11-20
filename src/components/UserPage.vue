@@ -48,7 +48,7 @@ li
   div
     display: flex
     justify-content: space-between
-    padding: 2rem
+    padding: 1rem 2rem
     background-color: LightGray
 .text
   text-align: start

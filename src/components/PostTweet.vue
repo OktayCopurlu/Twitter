@@ -1,31 +1,33 @@
 <template>
-  <h3>Create a new Tweet</h3>
-  <form @submit.prevent="formHandler">
-    <input
-      type="text"
-      name="title"
-      id="title"
-      v-model="title"
-      required
-      maxlength="20"
-      placeholder="title"
-    />
-    <textarea
-      placeholder="tweet"
-      name="tweet"
-      id="tweet"
-      required
-      v-model="tweet"
-      rows="6"
-      maxlength="250"
-    />
-    <button
-      :disabled="isDisabled"
-      :class="[isDisabled ? '' : 'ready-button', 'button']"
-    >
-      Send
-    </button>
-  </form>
+  <div>
+    <h3>Create a new Tweet</h3>
+    <form @submit.prevent="formHandler">
+      <input
+        type="text"
+        name="title"
+        id="title"
+        v-model="title"
+        required
+        maxlength="20"
+        placeholder="title"
+      />
+      <textarea
+        placeholder="tweet"
+        name="tweet"
+        id="tweet"
+        required
+        v-model="tweet"
+        rows="6"
+        maxlength="250"
+      />
+      <button
+        :disabled="isDisabled"
+        :class="[isDisabled ? '' : 'ready-button', 'button']"
+      >
+        Send
+      </button>
+    </form>
+  </div>
 </template>
 
 <script>
